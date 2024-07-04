@@ -1,9 +1,135 @@
-{% if latest_question_list %}
-    <ul>
-    {% for question in latest_question_list %}
-    <li><a href="{% url 'detail' question.id %}">{{ question.question_text }}</a></li>
-    {% endfor %}
-    </ul>
-{% else %}
-    <p>No polls are available.</p>
-{% endif %}
+
+<!-- templates/polls/index.html -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Formulario de Propiedad Horizontal</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css">
+</head>
+<body>
+    <div class="w-full max-w-lg mx-auto">
+        <h1 class="text-2xl font-bold mb-4">Formulario de Propiedad Horizontal</h1>
+        <p class="text-lg mb-6">Complete los siguientes datos</p>
+        <form method="POST">
+            {% csrf_token %}
+            <div class="mb-4">
+                <label for="apartamento" class="block font-medium mb-2">
+                    Apartamento
+                </label>
+                <input
+                    id="apartamento"
+                    name="apartamento"
+                    type="text"
+                    placeholder="Ingrese el apartamento"
+                    class="w-full border border-gray-300 rounded-md px-3 py-2 focus:border-primary focus:ring-primary"
+                    value="{{ apartamento }}"
+                />
+            </div>
+            <div class="mb-4">
+                <label for="nombre" class="block font-medium mb-2"> Nombre </label>
+                <input
+                    id="nombre"
+                    name="nombre"
+                    type="text"
+                    placeholder="Ingrese su nombre"
+                    class="w-full border border-gray-300 rounded-md px-3 py-2 focus:border-primary focus:ring-primary"
+                    value="{{ nombre }}"
+                />
+            </div>
+            <div class="mb-4">
+                <label for="apellidos" class="block font-medium mb-2"> Apellidos </label>
+                <input
+                    id="apellidos"
+                    name="apellidos"
+                    type="text"
+                    placeholder="Ingrese sus apellidos"
+                    class="w-full border border-gray-300 rounded-md px-3 py-2 focus:border-primary focus:ring-primary"
+                    value="{{ apellidos }}"
+                />
+            </div>
+            <div class="mb-4">
+                <label for="capital" class="block font-medium mb-2"> Capital </label>
+                <input
+                    id="capital"
+                    name="capital"
+                    type="number"
+                    placeholder="Ingrese el capital"
+                    class="w-full border border-gray-300 rounded-md px-3 py-2 focus:border-primary focus:ring-primary"
+                    value="{{ capital|default:0 }}"
+                />
+            </div>
+            <div class="mb-4">
+                <label for="honorarios" class="block font-medium mb-2">
+                    Honorarios (10%)
+                </label>
+                <input
+                    id="honorarios"
+                    name="honorarios"
+                    type="number"
+                    placeholder="Honorarios calculados automáticamente"
+                    class="w-full border border-gray-300 rounded-md px-3 py-2 focus:border-primary focus:ring-primary"
+                    readonly=""
+                    value="{{ honorarios|default:0.00 }}"
+                />
+            </div>
+            <div class="mb-4">
+                <label for="total" class="block font-medium mb-2"> Total </label>
+                <input
+                    id="total"
+                    name="total"
+                    type="number"
+                    placeholder="Total calculado automáticamente"
+                    class="w-full border border-gray-300 rounded-md px-3 py-2 focus:border-primary focus:ring-primary"
+                    readonly=""
+                    value="{{ total|default:0.00 }}"
+                />
+            </div>
+            <div class="mb-4">
+                <label for="correo" class="block font-medium mb-2">
+                    Correo Electrónico
+                </label>
+                <input
+                    id="correo"
+                    name="correo"
+                    type="email"
+                    placeholder="Ingrese su correo electrónico"
+                    class="w-full border border-gray-300 rounded-md px-3 py-2 focus:border-primary focus:ring-primary"
+                    value="{{ correo }}"
+                />
+            </div>
+            <div class="mb-4">
+                <label for="carteras" class="block font-medium mb-2"> Carteras </label>
+                <select
+                    id="carteras"
+                    name="carteras"
+                    class="w-full border border-gray-300 rounded-md px-3 py-2 focus:border-primary focus:ring-primary"
+                >
+                    <option value="" {% if not cartera %}selected{% endif %}>Seleccione una cartera</option>
+                    <option value="EDIFICIO INFINITUM CHAPINERO " {% if cartera == 'EDIFICIO INFINITUM CHAPINERO ' %}selected{% endif %}>EDIFICIO INFINITUM CHAPINERO </option>
+                    <option value="cartera2" {% if cartera == 'cartera2' %}selected{% endif %}>Cartera 2</option>
+                    <option value="cartera3" {% if cartera == 'cartera3' %}selected{% endif %}>Cartera 3</option>
+                    <option value="cartera4" {% if cartera == 'cartera4' %}selected{% endif %}>Cartera 4</option>
+                </select>
+            </div>
+            <div class="flex justify-between">
+                <button
+                    type="submit"
+                    class="bg-primary text-primary-foreground rounded-md px-4 py-2 hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary"
+                >
+                    Guardar
+                </button>
+                <button
+                    type="submit"
+                    class="bg-primary text-primary-foreground rounded-md px-4 py-2 hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary"
+                >
+                    Modificar
+                </button>
+            </div>
+        </form>
+        <footer class="mt-6 border-t pt-4 text-sm text-muted-foreground">
+            <p>© 2024 Todos los derechos reservados.</p>
+        </footer>
+    </div>
+</body>
+</html>
